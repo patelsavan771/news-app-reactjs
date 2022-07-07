@@ -1,8 +1,26 @@
 import React, { Component } from "react";
 import NewsItem from "./NewsItem";
 import Spinner from "./Spinner";
+import PropTypes from 'prop-types'
+
 
 export class News extends Component {
+  static propTypes = {
+    title: PropTypes.string,
+    country: PropTypes.string,
+    apiKey: PropTypes.string,
+    category: PropTypes.string,
+    pageSize: PropTypes.number,
+  }
+
+  static defaultProps = {
+    title: "General News Headlines",
+    country: "in",
+    apiKey: "e46da36b3e7a41978250d7fe6b5b6740",
+    category: "general",
+    pageSize: "8",
+  }
+
   constructor() {
     super();
     this.state = {
@@ -12,7 +30,6 @@ export class News extends Component {
       totalResults: 0,
     };
   }
-
   // baseUrl = `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=e46da36b3e7a41978250d7fe6b5b6740&page=1&pageSize=${this.props.pageSize}`;
 
   async displayNews(url) {
@@ -33,8 +50,9 @@ export class News extends Component {
     let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apiKey}&pageSize=${this.props.pageSize}&page=1`;
     this.displayNews(url);
   }
+
   handlePrevClick = async () => {
-    // console.log("previous");
+  
     let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country
       }&category=${this.props.category}&apiKey=${this.props.apiKey}&pageSize=${this.props.pageSize
       }&page=${this.state.page - 1}`;
@@ -45,8 +63,6 @@ export class News extends Component {
   };
 
   handleNextClick = async () => {
-    // console.log("Next");
-
     if (
       !(
         this.state.page + 1 >
@@ -67,7 +83,7 @@ export class News extends Component {
     return (
       <>
         <div className="container my-3">
-          <h2 className="my-3">News - Top headline</h2>
+          <h2 className="my-3">{this.props.title}</h2>
           {this.state.loading && <Spinner />}
           <div className="row">
             {!this.state.loading &&
