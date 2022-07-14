@@ -13,7 +13,7 @@ import {
 } from "react-router-dom";
 
 export default class App extends Component {
-  apiKey = "e46da36b3e7a41978250d7fe6b5b6740";
+  apiKey = process.env.REACT_APP_NEWS_API;
   pageSize = 5;
 
   state = {

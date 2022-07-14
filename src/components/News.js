@@ -51,7 +51,7 @@ export class News extends Component {
 
       this.props.setProgress(70);
       
-      console.log(parsedData);
+      // console.log(parsedData);
       this.setState({
           articles: parsedData.articles,
           totalResults: parsedData.totalResults,
@@ -83,11 +83,15 @@ export class News extends Component {
     this.setState({
       page: this.state.page + 1
     }, async () => {
+      // if(this.state.articles.length === this.state.totalResults) {
+      //   console.log("no other page left");
+      //   return
+      // }
       const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apiKey}&pageSize=${this.props.pageSize}&page=${this.state.page}`;
 
       let data = await fetch(url);
       let parsedData = await data.json();
-      console.log(parsedData);
+      // console.log(parsedData);
       this.setState({
         articles: this.state.articles.concat(parsedData.articles),
         totalResults: parsedData.totalResults,
@@ -100,7 +104,7 @@ export class News extends Component {
     return (
       <>
         <div className="container my-3">
-          <h2 className="my-3">{this.capitalFirstLetter(this.props.category)} - Top headlines</h2>
+          <h2 className="" style={{textAlign: 'center', marginTop : '84px', marginBottom:'17px'}}>{this.capitalFirstLetter(this.props.category)} - Top headlines</h2>
           {this.state.loading && <Spinner />}
 
           <InfiniteScroll
